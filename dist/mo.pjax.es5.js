@@ -6,7 +6,6 @@
  * MO.config: Config the options for MO.pjax
  */
 
-
 (function(_g){
 'use strict';
 
@@ -93,6 +92,10 @@ var _api = {
                 var _pObj = {
                     'done': function done(_done) {
                         _done ? _done(cacheData) : '';
+                        return _pObj;
+                    },
+                    'fail': function fail(_fail) {
+                        _fail ? _fail() : '';
                         return _pObj;
                     }
                 };
@@ -319,20 +322,18 @@ function state(url, title, onpopFn) {
         'dataType': opts['dataType']
     };
 
+    /**
+     * 因为此处一旦replaceState，就会修改url，
+     * 所以此处也修改document.title
+     */
     document.title = title;
     history.replaceState(_state, title, url);
-    
+
     if (_fire) _execute(_state);
 }
 
-function go(aEle, ctn, cb) {
-    var evtType = arguments.length <= 3 || arguments[3] === undefined ? 'click' : arguments[3];
-
-    function _ref4(res) {
-
-        $(ctn).html(res);
-        cb ? cb(res) : '';
-    }
+function go(aEle, ctn, cb, errorCb) {
+    var evtType = arguments.length <= 4 || arguments[4] === undefined ? 'click' : arguments[4];
 
     var $ctn = $(ctn),
         rawHtml = $ctn.html();
@@ -349,10 +350,17 @@ function go(aEle, ctn, cb) {
         // $ctn = $(ctn),
         url = $a.attr('href'),
             title = $a.html();
-        
 
-        touch(url, title, _ref4);
-        
+        /**
+         * DEBUG FOR FAIL
+         */
+
+        touch(url, title, function (res) {
+            $(ctn).html(res);
+            cb ? cb(res, $a) : '';
+        }).fail(function (err) {
+            errorCb ? errorCb(err, $a) : '';
+        });
 
         //stop propagation
         return false;
@@ -381,4 +389,3 @@ _g['MO'].config = config;
 
 
 })(this)
-

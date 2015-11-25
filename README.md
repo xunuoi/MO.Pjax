@@ -28,7 +28,18 @@ like:
     }
 })```
 
-- `MO.go(aSelector, ctnSelector, callback)`
+- `MO.go(aSelector, ctnSelector, onSuccess)`
+
+- with Success/Fail Fn: 
+```
+MO.go('.ctn a', '#ttt', 
+function onSuccess(res, $aEle){
+    console.log(res, $aEle)
+}, 
+function onError(err, $aEle){
+    console.log(err, $aEle)
+})
+```
 
 - `MO.define(ctn, htmlData)`
 

@@ -78,6 +78,10 @@ let _api = {
                 'done': function(_done){
                     _done ? _done(cacheData) : ''
                     return _pObj
+                },
+                'fail': function(_fail){
+                    _fail ? _fail() : ''
+                    return _pObj
                 }
             }
 
@@ -342,7 +346,7 @@ function state(url, title, onpopFn, _data=null, _fetch=false, _fire=false){
 }
 
 
-function go(aEle, ctn, cb, evtType='click'){
+function go(aEle, ctn, cb, errorCb, evtType='click'){
     let $ctn = $(ctn),
         rawHtml = $ctn.html()
 
@@ -357,12 +361,19 @@ function go(aEle, ctn, cb, evtType='click'){
             // $ctn = $(ctn),
             url = $a.attr('href'),
             title = $a.html()
- 
+        
+        /**
+         * DEBUG FOR FAIL
+         */
+        
         touch(url, title, (res)=>{
             $(ctn).html(res)
             cb ? cb(res, $a) : ''
         })
-
+        .fail(err=>{
+            errorCb ? errorCb(err, $a) : ''
+        })
+        
         //stop propagation
         return false
 
