@@ -13,7 +13,10 @@ html5 pjax push state, html history api~
 #### Install:
 
 - Put the `/dist/mo.pjax.es5.js` file in your html,
-like `<script type="text/javascript" src="./dist/mo.pjax.es5.js"></script>`
+like:
+```
+<script type="text/javascript" src="./dist/mo.pjax.es5.js"></script>
+```
 
 
 #### Usage:
