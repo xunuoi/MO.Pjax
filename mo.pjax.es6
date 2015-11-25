@@ -7,7 +7,6 @@
  */
 
 
-// let _mo_events = {}
 let _pjax_req = {}
 let _mo_cache = {}
 let _mo_cache_time = {}
@@ -331,9 +330,14 @@ function state(url, title, onpopFn, _data=null, _fetch=false, _fire=false){
         'dataType': opts['dataType']
     }
 
-    if(_fire) _execute(_state)
-    
+    /**
+     * 因为此处一旦replaceState，就会修改url，
+     * 所以此处也修改document.title
+     */
+    document.title = title
     history.replaceState(_state, title, url)
+
+    if(_fire) _execute(_state)
 
 }
 
@@ -352,21 +356,12 @@ function go(aEle, ctn, cb, evtType='click'){
         let $a = $(this),
             // $ctn = $(ctn),
             url = $a.attr('href'),
-            
             title = $a.html()
-        try{
-
-
+ 
         touch(url, title, (res)=>{
-            // debugger;
-            let $doc = $(res) 
-            let t = $doc.text()
-
-            $(ctn).html(t)
-            cb ? cb(t) : ''
+            $(ctn).html(res)
+            cb ? cb(res, $a) : ''
         })
-        }catch(err){console.error(err)}
-
 
         //stop propagation
         return false

@@ -319,21 +319,19 @@ function state(url, title, onpopFn) {
         'dataType': opts['dataType']
     };
 
-    if (_fire) _execute(_state);
-
+    document.title = title;
     history.replaceState(_state, title, url);
+    
+    if (_fire) _execute(_state);
 }
 
 function go(aEle, ctn, cb) {
     var evtType = arguments.length <= 3 || arguments[3] === undefined ? 'click' : arguments[3];
 
     function _ref4(res) {
-        // debugger;
-        var $doc = $(res);
-        var t = $doc.text();
 
-        $(ctn).html(t);
-        cb ? cb(t) : '';
+        $(ctn).html(res);
+        cb ? cb(res) : '';
     }
 
     var $ctn = $(ctn),
@@ -351,12 +349,10 @@ function go(aEle, ctn, cb) {
         // $ctn = $(ctn),
         url = $a.attr('href'),
             title = $a.html();
-        try {
+        
 
-            touch(url, title, _ref4);
-        } catch (err) {
-            console.error(err);
-        }
+        touch(url, title, _ref4);
+        
 
         //stop propagation
         return false;
