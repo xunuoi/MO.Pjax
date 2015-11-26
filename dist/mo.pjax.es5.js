@@ -31,13 +31,15 @@ var opts = {
         'Http-Request-Pjax': 'Fragment'
     },
 
+    // before () {}
+
     beforeSend: function beforeSend(req) {
         var ph = this['pjaxHeader'];
         for (var h in ph) {
             var v = ph[h];
             req.setRequestHeader(h, v);
         }
-        // req.setRequestHeader("Http-Request-Pjax", "Fragment");
+        // req.setRequestHeader("Http-Request-Pjax", "Fragment")
     }
 };
 
@@ -70,18 +72,15 @@ var _api = {
             console.error('fetch error: ' + url, err);
         }
 
-        /*let prefix = '/api'
-         if(url == '/'){
-            prefix = ''
-        }*/
+        /** Cache Data
+         * null and false is OK!, but undefined 
+         * is not in cache
+         **/
 
-        //null and false is OK!, but undefined is not in cache
         var cacheData = _cache(url);
-        // console.log(url, cacheData)
 
         function _ref3(data) {
             //if succeed, cache the res data
-            // _cache(url, data)
             opts['cache'] ? _cache(url, data) : '';
             opts['storage'] ? _store(url, data) : '';
         }
@@ -90,12 +89,26 @@ var _api = {
             var _ret = (function () {
 
                 var _pObj = {
+
+                    // 700 means from local cache/storage
+                    'status': '700',
+                    // "OK" means from http request ,
+                    // "cached" means cached
+                    'statusText': "cached",
+
                     'done': function done(_done) {
-                        _done ? _done(cacheData) : '';
+                        _done ? _done(cacheData, 'success', _pObj) : '';
+                        return _pObj;
+                    },
+                    'then': function then(_then) {
+                        _then ? _then(cacheData, 'success', _pObj) : '';
                         return _pObj;
                     },
                     'fail': function fail(_fail) {
-                        _fail ? _fail() : '';
+                        /**
+                         * 此处有缓存数据，不触发fail函数~
+                         */
+                        // _fail ? _fail() : ''
                         return _pObj;
                     }
                 };
@@ -250,9 +263,6 @@ function _register(apiUrl, fn) {
     var _fetch = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
 
     //update events fn
-    // delete _mo_events[apiUrl]
-    // _mo_events[apiUrl] = fn
-
     delete _pjax_req[apiUrl];
 
     _pjax_req[apiUrl] = {
@@ -278,6 +288,13 @@ function _trigger(state) {
     }
 
     // console.log(`*trigger: ${apiUrl}`)
+    /**
+     * Trigger Before Global Fn
+     */
+
+    if (opts['before']) {
+        opts['before'](state);
+    }
 
     return _api.fetch(apiUrl, dataType, _fetch).done(function (res) {
         document.title = title;
@@ -380,11 +397,28 @@ function config(conf) {
     if (conf) return $.extend(opts, conf);else return opts;
 }
 
+/**
+ * Store and remove Store
+ */
+
+function store() {
+    _store.apply(undefined, arguments);
+}
+
+function removeStore() {
+    _removeStorage.apply(undefined, arguments);
+}
+
 
 _g['MO'].go = go;
+
 _g['MO'].define = define;
 _g['MO'].touch = touch;
 _g['MO'].state = state;
+
+_g['MO'].store = store;
+_g['MO'].removeStore = removeStore;
+
 _g['MO'].config = config;
 
 

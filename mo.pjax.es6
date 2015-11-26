@@ -25,14 +25,16 @@ let opts = {
     'pjaxHeader': {
         'Http-Request-Pjax': 'Fragment'
     },
+
+    // before () {}
     
     beforeSend (req){
         let ph = this['pjaxHeader']
         for (let h in ph ){
             let v = ph[h]
-            req.setRequestHeader(h, v);
+            req.setRequestHeader(h, v)
         }
-        // req.setRequestHeader("Http-Request-Pjax", "Fragment");
+        // req.setRequestHeader("Http-Request-Pjax", "Fragment")
     }
 }
 
@@ -62,25 +64,37 @@ initEvents()
 
 let _api = {
     fetch (url, dataType, _fetch){
-        /*let prefix = '/api'
 
-        if(url == '/'){
-            prefix = ''
-        }*/
+        /** Cache Data
+         * null and false is OK!, but undefined 
+         * is not in cache
+         **/
 
-        //null and false is OK!, but undefined is not in cache
         let cacheData = _cache(url)
-        // console.log(url, cacheData)
 
         if(!_fetch || cacheData !== undefined){
 
-            let _pObj = {
+            let _pObj = {   
+
+                // 700 means from local cache/storage
+                'status': '700',
+                // "OK" means from http request ,
+                // "cached" means cached
+                'statusText': "cached",
+
                 'done': function(_done){
-                    _done ? _done(cacheData) : ''
+                    _done ? _done(cacheData, 'success', _pObj) : ''
+                    return _pObj
+                },
+                'then': function(_then){
+                    _then ? _then(cacheData, 'success', _pObj) : ''
                     return _pObj
                 },
                 'fail': function(_fail){
-                    _fail ? _fail() : ''
+                    /**
+                     * 此处有缓存数据，不触发fail函数~
+                     */
+                    // _fail ? _fail() : ''
                     return _pObj
                 }
             }
@@ -96,9 +110,8 @@ let _api = {
             .fail((err) => {
                 console.error(`fetch error: ${url}`,  err)
             })
-            .done((data)=>{
+            .done((data, ...args)=>{
                 //if succeed, cache the res data
-                // _cache(url, data)
                 opts['cache'] ? _cache(url, data) : ''
                 opts['storage'] ? _store(url, data) : ''
                 
@@ -258,10 +271,8 @@ function _execute(state){
 }
 
 function _register(apiUrl, fn, _fetch=true){
+
     //update events fn
-    // delete _mo_events[apiUrl]
-    // _mo_events[apiUrl] = fn
-     
     delete _pjax_req[apiUrl]
 
     _pjax_req[apiUrl] = {
@@ -289,6 +300,13 @@ function _trigger(state){
     }
 
     // console.log(`*trigger: ${apiUrl}`)
+    /**
+     * Trigger Before Global Fn
+     */
+    
+    if(opts['before']){
+        opts['before'](state)
+    }
 
     return _api
     .fetch(apiUrl, dataType, _fetch)
@@ -395,10 +413,29 @@ function config(conf){
 }
 
 
+/**
+ * Store and remove Store
+ */
+
+function store(...args){
+    _store(...args)
+}
+
+
+function removeStore(...args){
+    _removeStorage(...args)
+}
+
+
 export {
     go,
+    
     define,
     touch,
     state,
+
+    store,
+    removeStore,
+
     config
 }
