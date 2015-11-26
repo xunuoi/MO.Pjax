@@ -1,7 +1,7 @@
 # MO.Pjax
 html5 pjax push state, html history api~
 
-* [Pjax 使用教程](http://karat.cc/article/5655bcdce6fecb6c65eded27)
+* [Pjax 使用教程](http://karat.cc/article/5655bcdce6fecb6c65eded27) http://karat.cc/article/5655bcdce6fecb6c65eded27
 * 使用MO.touch和MO.state的[案例](http://karat.cc/)
 * 使用MO.go的[案例](http://karat.cc/product)
 * 用Pjax来开发web/H5/H5 APP，页面无刷新更新页面内容， 
@@ -76,7 +76,7 @@ MO.config({
 
     // you can set the fn which will triggered before MO.touch and popstate event happened
     // 触发pjax操作前和 出现popstate的事件时的事件函数, 参数是state，包含url、title等信息
-    // before (state) { ... } 
+    before (state) { ... } //默认无
     
     // you can set the beforeSend fn , before ajax request send.
     // jquery的ajax方法调用，请求前设置请求头，可以覆盖
