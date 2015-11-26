@@ -2,9 +2,10 @@
 html5 pjax push state, html history api~
 
 * 用Pjax来开发web/H5/H5 APP，页面无刷新更新页面内容， 
+* 启用cache和localStorage缓存、本地存储机制，简单、好用、快速
 * 无刷新、速度快，提供更好的用户体验！
 
-#### [version 1.0.1]
+###### [version 1.0.1]
 
 
 
@@ -15,7 +16,8 @@ html5 pjax push state, html history api~
 
 - Put the `/dist/mo.pjax.es5.js` file in your html,
 like:
-```
+
+````html
 <script type="text/javascript" src="./dist/mo.pjax.es5.js"></script>
 ```
 
@@ -31,7 +33,9 @@ like:
 #### Config Api Desc:
 
 - Config the MO: 
-```
+
+````Javascript
+
 MO.config({
     'type': 'POST',
     
@@ -43,7 +47,8 @@ MO.config({
 ```
 
 - In fact ,you can set all below options:
-```
+
+````Javascript
 {
     'type': 'POST',// post is default
     
@@ -87,7 +92,8 @@ MO.config({
 - `MO.go(aSelector, ctnSelector, onSuccess)`
 
 - with Success/Fail Fn, you can deal with error by yourself: 
-```
+
+````Javascript
 MO.go('.ctn a', '#ttt', 
 function onSuccess(res, $aEle){
     console.log(res, $aEle)
@@ -106,7 +112,8 @@ function onError(err, $aEle){
 - Most flexible Usage , you can controll every this,
 - `MO.touch(apiUrl, title, onpopFn, _fetch=true)` 
 - You can add fail fn to deal with faild error:
-```
+
+````Javascript
 MO.touch(apiUrl, title, onpopFn, _fetch=true)
 .fail(function(err) {
     console.log('There is an error ', err)
@@ -117,7 +124,8 @@ MO.touch(apiUrl, title, onpopFn, _fetch=true)
 - store/removeStore data in localStorage with auto expires feature,
 - It will createt a item { k+'createdAt': (new Date).getTime() },
 - and you can set the expire in MO.config({storageExpire: xxxx })
-```
+
+````Javascript
 MO.store(k, v)
 MO.removeStore(k, v)
 ```
@@ -128,7 +136,10 @@ MO.removeStore(k, v)
 #### Example:
 
 ##### html
-```
+
+````html
+<!-- Index.html -->
+
 <div class="ctn">
     <h3>Test Mo.pjax</h3>
     <p>
@@ -136,12 +147,30 @@ MO.removeStore(k, v)
         <a href="/toxic">Toxic</a> 
     </p>
 </div>
+<div id="ttt" style="margin-top: 30px;">
+    <p>This is index html</p>
+</div>
 
-<div id="ttt" style="margin-top: 30px;">GO OK</div>
+
+
+------------------------------------------------------------------
+<!-- about.html -->
+
+<div>This is about html</div>
+
+
+
+------------------------------------------------------------------
+<!-- toxic.html -->
+
+<div>This is toxic html</div>
+
 ```
 
+
+
 ##### JS
-- just:
+- just in your js:
 `MO.go('.ctn a', '#ttt')`
 
 - so easy !
