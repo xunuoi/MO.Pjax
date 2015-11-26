@@ -1,8 +1,9 @@
 # MO.Pjax
 html5 pjax push state, html history api~
-Link: [Pjax 使用教程](http://karat.cc/article/5655bcdce6fecb6c65eded27)
 
-
+* [Pjax 使用教程](http://karat.cc/article/5655bcdce6fecb6c65eded27)
+* 使用MO.touch和MO.state的[案例](http://karat.cc/)
+* 使用MO.go的[案例](http://karat.cc/product)
 * 用Pjax来开发web/H5/H5 APP，页面无刷新更新页面内容， 
 * 启用cache和localStorage缓存、本地存储机制，简单、好用、快速
 * 无刷新、速度快，提供更好的用户体验！
@@ -136,8 +137,11 @@ MO.touch(apiUrl, title, onpopFn, _fetch=true)
 ```
 
 ###### 说明
+
 - 通过MO.touch和MO.state，可以做非常复杂的pjax 应用，自定义事件\UI等
 - 如果要简单使用，就是直接 MO.go(), 传入你想要pjax的a元素的selector即可
+- 配合启用cache/localStorage(默认都启用), 给用户更好操作体验，减少等待、卡顿
+
 
 ###### 额外的api：store/removeStore
 - 提供本地存储和自动过期机制，
@@ -195,7 +199,7 @@ MO.removeStore(k, v)
 - just :
 `MO.go('.ctn a', '#ttt')`
 
-- so easy !
+- so easy! 搞定
 
 
 
