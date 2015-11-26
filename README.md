@@ -24,7 +24,7 @@ like:
 
 ##### Api Params Desc:
 
-- `_fetch` means send http request, if `_fetch=false`, it won't send http request and do not fetch network
+- `_fetch` means if send http request , if `_fetch=false`, it won't send http request and do not fetch network
 - `_fire` means trigger the onpop fn immediately ,will change current history state immediately
 - ``
 
