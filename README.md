@@ -26,14 +26,58 @@ like:
 
 - `_fetch` means if send http request , if `_fetch=false`, it won't send http request and do not fetch network
 - `_fire` means trigger the onpop fn immediately ,will change current history state immediately
-- ``
 
-- Config the MO: ```MO.config({
+
+#### Config Api Desc:
+
+- Config the MO: 
+```
+MO.config({
     'type': 'POST',
+    
+    // this can be used for you back-end ,to detect if it is a pjax request
     'pjaxHeader': {
         'X-Http-Pjax': 'Pjax'
     }
-})```
+})
+```
+
+- In fact ,you can set all below options:
+```
+{
+    'type': 'POST',// post is default
+    
+    // if cache data
+    'cache': true,
+    // 'cacheExpires': 10000, // 0 means always avaliable, default none
+    
+    // if store data in localStorage , default true
+    'storage': true,
+    //如果storageExpires设置为0或false，永不过期
+    'storageExpires': 43200000, // 12 hours ,default 12 
+    
+    // the res data type, default html
+    'dataType': 'html',
+
+    // you can set your own header ,just use `pjaxHeader` opts, 
+    // which you can detect if it is an pjax request in back-end 
+    'pjaxHeader': {
+        'Http-Request-Pjax': 'Fragment'
+    },
+
+    // you can set the fn which will triggered before MO.touch and popstate event happened
+    // before () { ... } 
+    
+    // you can set the beforeSend fn , before ajax request send.
+    beforeSend (req){
+        let ph = this['pjaxHeader']
+        for (let h in ph ){
+            let v = ph[h]
+            req.setRequestHeader(h, v)
+        }
+    }
+}
+```
 
 
 #### Api:
@@ -70,6 +114,15 @@ MO.touch(apiUrl, title, onpopFn, _fetch=true)
 
 ```
 
+- store/removeStore data in localStorage with auto expires feature,
+- It will createt a item { k+'createdAt': (new Date).getTime() },
+- and you can set the expire in MO.config({storageExpire: xxxx })
+```
+MO.store(k, v)
+MO.removeStore(k, v)
+```
+
+
 
 
 #### Example:
@@ -88,8 +141,10 @@ MO.touch(apiUrl, title, onpopFn, _fetch=true)
 ```
 
 ##### JS
-
+- just:
 `MO.go('.ctn a', '#ttt')`
+
+- so easy !
 
 
 
