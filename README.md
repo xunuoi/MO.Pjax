@@ -29,8 +29,8 @@ html5 pjax push state, html history api~
 
 ##### Api Params Desc 参数注释:
 
-- `_fetch` means if send http request , if `_fetch=false`, it won't send http request and do not fetch network
-- `_fire` means trigger the onpop fn immediately ,will change current history state immediately
+- `_fetch`  是否触发网络请求; means if send http request , if `_fetch=false`, it won't send http request and do not fetch network
+- `_fire` 是否立刻执行回调函数; means trigger the onpop fn immediately ,will change current history state immediately
 
 
 #### Config Api Desc 配置:
@@ -111,7 +111,7 @@ function onError(err, $aEle){
   
   
 2 `MO.touch(apiUrl, title, onpopFn, _fetch=true)`  
-更强大和灵活的使用pjax， 可以定义 pjax的操作的url、回调、是否发起此url的网络请求等, 可以实现复杂交互和动画，同样可添加错误处理函数; Most flexible Usage , you can controll everything by this api, and it usually works with MO.state.
+更强大和灵活的使用pjax， 可以定义 pjax的操作的url、回调、是否发起此url的网络请求等, 可以实现复杂交互和动画。通常与MO.state配合使用。同样可添加错误处理函数; Most flexible Usage , you can controll everything by this api, and it usually works with MO.state.
   
 添加fail处理网络请求错误; You can add fail fn to deal with http request error:
   
