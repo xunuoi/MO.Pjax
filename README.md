@@ -91,16 +91,12 @@ MO.config({
 ```
 
 
-#### Api:
+#### Api List:
   
-1. `MO.go(aSelector, ctnSelector, onSuccess)`   
+1. `MO.go(aSelector, ctnSelector, onSuccess)`  
+这个是最简单和常用的api， 只需要go一下，传入2个参数即可，1个参数是点击后触发pjax的元素选择器，一般是a，第2个是更新返回内容的html 。第3个是回调函数，可选，默认空; Easy Mode Usage, aSelector is the a link you want to use pjax, and ctnSelector is the html container, onSuccess is callback when succeed.
 
-Easy Mode Usage, aSelector is the a link you want to use pjax, and ctnSelector is the html container, onSuccess is callback when succeed.
-这个是最简单和常用的api， 只需要go一下，传入2个参数即可，
-1个参数是点击后触发pjax的元素选择器，一般是a，第2个是更新返回内容的html 。第3个是回调函数，可选，默认空
-  
-如果要添加处理错误的函数，比如出现网络请求错误404等，可以在此设置捕获  
-with Success/Fail Fn, you can deal with error by yoursel
+如果要添加处理错误的函数，比如出现网络请求错误404等，可以在此设置捕获; you can deal error here by error-fn
 ````Javascript
 MO.go('.ctn a', '#ttt', 
 function onSuccess(res, $aEle){
@@ -112,32 +108,29 @@ function onError(err, $aEle){
 ```
   
   
-2. `MO.define`  
-定义当前页面的state状态, Update Curretn History State immediately  
-`MO.define(ctn, htmlData)`
+2. `MO.touch(apiUrl, title, onpopFn, _fetch=true)`  
+更强大和灵活的使用pjax， 可以定义 pjax的操作的url、回调、是否发起此url的网络请求等, 可以实现复杂交互和动画，同样可添加错误处理函数; Most flexible Usage , you can controll everything by this api, and it usually works with MO.state.
   
-  
-- 3. `MO.state(url, title, onpopFn, _data=null, _fetch=false, _fire=false)`  
-
-详细定义当前页面state状态，以及是否请求次url, 和是否立刻触发onpopFn_fire
-Update Current History State, if you want fire immediately ,just set _fire true, and _data can be null ,which will be put to onpopFn
-  
-  
-- 4. `MO.touch(apiUrl, title, onpopFn, _fetch=true)`  
-更强大和灵活的使用pjax， 可以定义 pjax的操作的url、回调、是否发起此url的网络请求等，同样可以添加fail的错误处理函数
-Most flexible Usage , you can controll everything by this api, and it usually works with MO.state.
-  
-添加fail处理网络请求错误
-You can add fail fn to deal with http request error:
+添加fail处理网络请求错误; You can add fail fn to deal with http request error:
   
 ````Javascript
 MO.touch(apiUrl, title, onpopFn, _fetch=true)
 .fail(function(err) {
-    console.log('There is an error ', err)
+    console.log('There is an error', err)
 })
 ```
   
   
+3. `MO.define(ctn, htmlData)`  
+定义当前页面的state状态; Update Curretn History State immediately  
+
+  
+4. `MO.state(url, title, onpopFn, _data=null, _fetch=false, _fire=false)`  
+详细定义当前页面state状态，以及是否请求次url, 和是否立刻触发onpopFn_fire
+Update Current History State, if you want fire immediately ,just set _fire true, and _data can be null ,which will be put to onpopFn
+  
+   
+ 
   
 ###### 说明
 
