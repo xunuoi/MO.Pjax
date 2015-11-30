@@ -109,6 +109,7 @@ function onError(err, $aEle){
 ```
   
   
+  
 2 `MO.touch(apiUrl, title, onpopFn, _fetch=true)`  
 更强大和灵活的使用pjax， 可以定义 pjax的操作的url、回调、是否发起此url的网络请求等, 可以实现复杂交互和动画，同样可添加错误处理函数; Most flexible Usage , you can controll everything by this api, and it usually works with MO.state.
   
@@ -122,25 +123,27 @@ MO.touch(apiUrl, title, onpopFn, _fetch=true)
 ```
   
   
+  
 3 `MO.define(ctn, htmlData)`  
 定义当前页面的state状态; Update Curretn History State immediately  
 
+  
   
 4 `MO.state(url, title, onpopFn, _data=null, _fetch=false, _fire=false)`  
 详细定义当前页面state状态，以及是否请求次url, 和是否立刻触发onpopFn_fire
 Update Current History State, if you want fire immediately ,just set `_fire=true`, and `_data` can be `null` ,which will be put to `onpopFn`
   
   
-     
-
-##### 说明
+  
+  
+##### *说明
 
 - 通过MO.touch和MO.state，可以做非常复杂的pjax 应用，自定义事件\UI等
 - 如果要简单使用，就是直接 MO.go(), 传入你想要pjax的a元素的selector即可
 - 配合启用cache/localStorage(默认都启用), 给用户更好操作体验，减少等待、卡顿
 
 
-##### Store Api
+##### *Store Api
 - 提供本地存储和自动过期机制，
 - 过期时间通过MO.config({'storageExpires': xxx})来设定
 - store/removeStore data in localStorage with auto expires feature,
@@ -155,6 +158,7 @@ MO.removeStore(k, v)
 ```
 
 
+  
   
   
   
@@ -210,8 +214,9 @@ The docs is maybe rougth, simple, not-easily-understood. So Any questions, conta
 
 Email: 
 
-* xunuoi@163.com [recommend]
 * xwlxyjk@gmail.com
+* xunuoi@163.com[recommend]
+
 
 
 
