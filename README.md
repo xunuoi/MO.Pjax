@@ -90,10 +90,11 @@ MO.config({
 }
 ```
 
-
+  
+  
 #### Api List:
   
-1. `MO.go(aSelector, ctnSelector, onSuccess)`  
+1 `MO.go(aSelector, ctnSelector, onSuccess)`  
 这个是最简单和常用的api， 只需要go一下，传入2个参数即可，1个参数是点击后触发pjax的元素选择器，一般是a，第2个是更新返回内容的html 。第3个是回调函数，可选，默认空; Easy Mode Usage, aSelector is the a link you want to use pjax, and ctnSelector is the html container, onSuccess is callback when succeed.
 
 如果要添加处理错误的函数，比如出现网络请求错误404等，可以在此设置捕获; you can deal error here by error-fn
@@ -108,7 +109,7 @@ function onError(err, $aEle){
 ```
   
   
-2. `MO.touch(apiUrl, title, onpopFn, _fetch=true)`  
+2 `MO.touch(apiUrl, title, onpopFn, _fetch=true)`  
 更强大和灵活的使用pjax， 可以定义 pjax的操作的url、回调、是否发起此url的网络请求等, 可以实现复杂交互和动画，同样可添加错误处理函数; Most flexible Usage , you can controll everything by this api, and it usually works with MO.state.
   
 添加fail处理网络请求错误; You can add fail fn to deal with http request error:
@@ -121,25 +122,25 @@ MO.touch(apiUrl, title, onpopFn, _fetch=true)
 ```
   
   
-3. `MO.define(ctn, htmlData)`  
+3 `MO.define(ctn, htmlData)`  
 定义当前页面的state状态; Update Curretn History State immediately  
 
   
-4. `MO.state(url, title, onpopFn, _data=null, _fetch=false, _fire=false)`  
+4 `MO.state(url, title, onpopFn, _data=null, _fetch=false, _fire=false)`  
 详细定义当前页面state状态，以及是否请求次url, 和是否立刻触发onpopFn_fire
-Update Current History State, if you want fire immediately ,just set _fire true, and _data can be null ,which will be put to onpopFn
+Update Current History State, if you want fire immediately ,just set `_fire=true`, and `_data` can be `null` ,which will be put to `onpopFn`
   
-   
- 
   
-###### 说明
+     
+
+##### 说明
 
 - 通过MO.touch和MO.state，可以做非常复杂的pjax 应用，自定义事件\UI等
 - 如果要简单使用，就是直接 MO.go(), 传入你想要pjax的a元素的selector即可
 - 配合启用cache/localStorage(默认都启用), 给用户更好操作体验，减少等待、卡顿
 
 
-###### 额外的api：store/removeStore
+##### Store Api
 - 提供本地存储和自动过期机制，
 - 过期时间通过MO.config({'storageExpires': xxx})来设定
 - store/removeStore data in localStorage with auto expires feature,
@@ -154,7 +155,9 @@ MO.removeStore(k, v)
 ```
 
 
-
+  
+  
+  
 #### Example 举例:
 
 ##### html
