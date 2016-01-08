@@ -27,13 +27,6 @@ html5 pjax push state, html history api~
 
 #### Usage:
 
-##### Api Params Desc 参数注释:
-
-- `_fetch`  是否触发网络请求; means if send http request , if `_fetch=false`, it won't send http request and do not fetch network
-- `_fire` 是否立刻执行回调函数; means trigger the onpop fn immediately ,will change current history state immediately
-
-
-#### Config Api Desc 配置:
   
 #### Api List:
   
@@ -101,7 +94,14 @@ MO.removeStore(k, v)
 ```
 
 
-- Config the MO: 
+
+##### 其他说明:
+
+- `_fetch`  是否触发网络请求; means if send http request , if `_fetch=false`, it won't send http request and do not fetch network
+- `_fire` 是否立刻执行回调函数; means trigger the onpop fn immediately ,will change current history state immediately
+
+
+- 设置MO选项Config: 
 
 ````Javascript
 
@@ -159,7 +159,9 @@ MO.config({
   
   
   
-#### Example 举例:
+  
+  
+#### Example 实际使用举例:
 
 ##### html
 
