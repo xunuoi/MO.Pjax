@@ -34,63 +34,6 @@ html5 pjax push state, html history api~
 
 
 #### Config Api Desc 配置:
-
-- Config the MO: 
-
-````Javascript
-
-MO.config({
-    'type': 'POST',
-    
-    // this can be used for you back-end ,to detect if it is a pjax request
-    'pjaxHeader': {
-        'X-Http-Pjax': 'Pjax'
-    }
-})
-```
-
-- In fact ,you can set all below options 详细配置信息:
-
-````Javascript
-{
-    'type': 'POST',// post is default http请求方式
-    
-    // if cache data， 是否缓存
-    'cache': true,
-    // 'cacheExpires': 10000, // 0 means always avaliable, default none 缓存时间
-    
-    // if store data in localStorage , default true 
-    'storage': true, //是否启用localStorage
-    //如果storageExpires设置为0或false，永不过期
-    'storageExpires': 43200000, // 12 hours ,default 12 
-    
-    // the res data type, default html
-    'dataType': 'html', //返回数据类型，默认html
-
-    // you can set your own header ,just use `pjaxHeader` opts, 
-    // which you can detect if it is an pjax request in back-end 
-    // 你可以自己定义请求头，方便后端判断是否是pjax请求，如果是pjax, 返回部分html， fragment
-    'pjaxHeader': {
-        'Http-Request-Pjax': 'Fragment'
-    },
-
-    // you can set the fn which will triggered before MO.touch and popstate event happened
-    // 触发pjax操作前和 出现popstate的事件时的事件函数, 参数是state，包含url、title等信息
-    before (state) { ... } //默认无
-    
-    // you can set the beforeSend fn , before ajax request send.
-    // jquery的ajax方法调用，请求前设置请求头，可以覆盖
-    beforeSend (req){
-        let ph = this['pjaxHeader']
-        for (let h in ph ){
-            let v = ph[h]
-            req.setRequestHeader(h, v)
-        }
-    }
-}
-```
-
-  
   
 #### Api List:
   
@@ -158,6 +101,60 @@ MO.removeStore(k, v)
 ```
 
 
+- Config the MO: 
+
+````Javascript
+
+MO.config({
+    'type': 'POST',
+    
+    // this can be used for you back-end ,to detect if it is a pjax request
+    'pjaxHeader': {
+        'X-Http-Pjax': 'Pjax'
+    }
+})
+```
+
+- In fact ,you can set all below options 详细配置信息:
+
+````Javascript
+{
+    'type': 'POST',// post is default http请求方式
+    
+    // if cache data， 是否缓存
+    'cache': true,
+    // 'cacheExpires': 10000, // 0 means always avaliable, default none 缓存时间
+    
+    // if store data in localStorage , default true 
+    'storage': true, //是否启用localStorage
+    //如果storageExpires设置为0或false，永不过期
+    'storageExpires': 43200000, // 12 hours ,default 12 
+    
+    // the res data type, default html
+    'dataType': 'html', //返回数据类型，默认html
+
+    // you can set your own header ,just use `pjaxHeader` opts, 
+    // which you can detect if it is an pjax request in back-end 
+    // 你可以自己定义请求头，方便后端判断是否是pjax请求，如果是pjax, 返回部分html， fragment
+    'pjaxHeader': {
+        'Http-Request-Pjax': 'Fragment'
+    },
+
+    // you can set the fn which will triggered before MO.touch and popstate event happened
+    // 触发pjax操作前和 出现popstate的事件时的事件函数, 参数是state，包含url、title等信息
+    before (state) { ... } //默认无
+    
+    // you can set the beforeSend fn , before ajax request send.
+    // jquery的ajax方法调用，请求前设置请求头，可以覆盖
+    beforeSend (req){
+        let ph = this['pjaxHeader']
+        for (let h in ph ){
+            let v = ph[h]
+            req.setRequestHeader(h, v)
+        }
+    }
+}
+```
   
   
   
