@@ -203,24 +203,3 @@ MO.config({
 `MO.go('.ctn a', '#ttt')`
 
 - so easy! 搞定
-
-
-
-
-
-# Contact Me
-
-The docs is maybe rougth, simple, not-easily-understood. So Any questions, contact me.
-
-Email: 
-
-* xwlxyjk@gmail.com
-* xunuoi@163.com[recommend]
-
-
-
-
-QQ: [751933537]
-
-
-### Best Wishes!
